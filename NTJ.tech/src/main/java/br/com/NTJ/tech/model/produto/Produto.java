@@ -1,6 +1,7 @@
 package br.com.NTJ.tech.model.produto;
 
 import br.com.NTJ.tech.dto.produto.CadastroProduto;
+import br.com.NTJ.tech.model.pedido.Pedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -57,8 +59,10 @@ public class Produto {
     @Enumerated(EnumType.STRING)
     private TipoTamanho tamanho;
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
+
     public Produto(CadastroProduto produto){
-        idProduto = produto.idProduto();
         nmProduto = produto.nmProduto();
         barra = produto.barra();
         status = produto.status();
@@ -71,8 +75,6 @@ public class Produto {
     }
 
     public void atualizarDados(CadastroProduto atualizacao){
-        if(atualizacao.idProduto() != null)
-            idProduto = atualizacao.idProduto();
         if(atualizacao.nmProduto() != null)
             nmProduto = atualizacao.nmProduto();
         if(atualizacao.barra() != null)

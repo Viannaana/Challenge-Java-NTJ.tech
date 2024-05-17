@@ -1,6 +1,7 @@
 package br.com.NTJ.tech.model.cliente;
 
 import br.com.NTJ.tech.dto.cliente.CadastroCliente;
+import br.com.NTJ.tech.model.pedido.Pedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,6 +44,10 @@ public class Cliente {
     @Column(name = "STA_ATIVO", length = 100, nullable = false)
     private String statusAtivo;
 
+    @ManyToOne
+    @JoinColumn(name = "clientes")
+    private Pedido pedido;
+
     public Cliente(CadastroCliente cliente){
         nome = cliente.nome();
         email = cliente.email();
@@ -50,6 +55,16 @@ public class Cliente {
         dataCadastro = cliente.cadastro();
         dataCancelamento = cliente.cancelamento();
         statusAtivo = cliente.status();
+    }
+
+    public Cliente(CadastroCliente cliente, Pedido pedido){
+        nome = cliente.nome();
+        email = cliente.email();
+        telefone = cliente.telefone();
+        dataCadastro = cliente.cadastro();
+        dataCancelamento = cliente.cancelamento();
+        statusAtivo = cliente.status();
+        this.pedido = pedido;
     }
 
     public void atualizarDados(CadastroCliente atualizacao){

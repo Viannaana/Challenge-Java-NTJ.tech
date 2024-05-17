@@ -2,6 +2,9 @@ package br.com.NTJ.tech.model.pedido;
 
 
 import br.com.NTJ.tech.dto.pedido.CadastroPedido;
+import br.com.NTJ.tech.model.cliente.Cliente;
+import br.com.NTJ.tech.model.historicoPedido.HistoricoPedido;
+import br.com.NTJ.tech.model.produto.Produto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +13,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -44,6 +48,17 @@ public class Pedido {
     @Column(name = "TP_PEDIDO", length = 100, nullable = false)
     private String tpPedido;
 
+    @ManyToOne
+    @JoinColumn(name = "historicoDePedidos")
+    private HistoricoPedido historicoPedido;
+
+    @ManyToOne
+    @JoinColumn(name = "pedidos")
+    private Produto produto;
+
+    @OneToMany(mappedBy = "pedidos", cascade = CascadeType.ALL)
+    private List<Cliente> pedidoCliente;
+
     public Pedido(CadastroPedido pedido){
         dtPedido = pedido.dtPedido();
         dtCancelamento = pedido.dtCancelamento();
@@ -51,6 +66,26 @@ public class Pedido {
         vlPedido = pedido.vlPedido();
         vlDesconto = pedido.vlDesconto();
         tpPedido = pedido.tpPedido();
+    }
+
+    public Pedido(CadastroPedido pedido, HistoricoPedido historicoPedido){
+        dtPedido = pedido.dtPedido();
+        dtCancelamento = pedido.dtCancelamento();
+        dtEntrega = pedido.dtEntrega();
+        vlPedido = pedido.vlPedido();
+        vlDesconto = pedido.vlDesconto();
+        tpPedido = pedido.tpPedido();
+        this.historicoPedido = historicoPedido;
+    }
+
+    public Pedido(CadastroPedido pedido, Produto produto){
+        dtPedido = pedido.dtPedido();
+        dtCancelamento = pedido.dtCancelamento();
+        dtEntrega = pedido.dtEntrega();
+        vlPedido = pedido.vlPedido();
+        vlDesconto = pedido.vlDesconto();
+        tpPedido = pedido.tpPedido();
+        this.produto = produto;
     }
 
     public void atualizarDados(CadastroPedido atualizacao){

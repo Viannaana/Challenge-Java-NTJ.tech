@@ -2,6 +2,7 @@ package br.com.NTJ.tech.model.historicoPedido;
 
 
 import br.com.NTJ.tech.dto.historicoPedido.CadastroHistoricoPedido;
+import br.com.NTJ.tech.model.pedido.Pedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,6 +36,9 @@ public class HistoricoPedido {
 
     @Column(name = "DT_PEDIDO", nullable = false)
     private LocalDate dtPedido;
+
+    @OneToMany(mappedBy = "historicoPedido", cascade = CascadeType.ALL)
+    private List<Pedido> historicoDePedidos;
 
     public HistoricoPedido(CadastroHistoricoPedido historicoPedido){
         dtHistorico = historicoPedido.dtHistorico();

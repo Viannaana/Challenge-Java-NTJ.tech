@@ -2,8 +2,12 @@ package br.com.NTJ.tech.controller.cliente;
 
 import br.com.NTJ.tech.dto.cliente.CadastroCliente;
 import br.com.NTJ.tech.dto.cliente.DetalhesCliente;
+import br.com.NTJ.tech.dto.cliente.DetalhesPedidoCliente;
+import br.com.NTJ.tech.dto.pedido.CadastroPedido;
 import br.com.NTJ.tech.model.cliente.Cliente;
 import br.com.NTJ.tech.repository.cliente.ClienteRepository;
+import br.com.NTJ.tech.repository.pedido.PedidoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteRepository repository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @GetMapping
     public ResponseEntity<List<DetalhesCliente>> listar(Pageable pageable){
@@ -42,6 +49,19 @@ public class ClienteController {
         repository.save(cliente);
         var url = uri.path("/clientes/{id}").buildAndExpand(cliente.getCodigo()).toUri();
         return ResponseEntity.created(url).body(new DetalhesCliente(cliente));
+    }
+
+    //Post da tabela Cliente para pedido
+    @PostMapping("{id}/pedidoCliente")
+    @Transactional
+    public ResponseEntity<DetalhesPedidoCliente> postPedidoCliente(@PathVariable("id") Long id,
+                                                                   @RequestBody @Valid CadastroCliente dto,
+                                                                   UriComponentsBuilder uriBuilder){
+        var pedido = pedidoRepository.getReferenceById(id);
+        var cliente = new Cliente(dto, pedido);
+        repository.save(cliente);
+        var uri = uriBuilder.path("pedidoCliente/{id}").buildAndExpand(cliente.getCodigo()).toUri();
+        return ResponseEntity.created(uri).body(new DetalhesPedidoCliente(cliente));
     }
 
     @PutMapping("{id}")
