@@ -1,6 +1,8 @@
 package br.com.NTJ.tech.model.categoria;
 
 import br.com.NTJ.tech.dto.categoria.CadastroCategoria;
+import br.com.NTJ.tech.dto.produto.CadastroProduto;
+import br.com.NTJ.tech.model.produto.Produto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +31,16 @@ public class Categoria {
 
     @Column(name = "DC_CATEGORIA", length = 200, nullable = false)
     private String descricao;
+
+    @OneToOne
+    @JoinColumn(name = "ID_PRODUTO", unique = true)
+    private Produto produto;
+
+    public Categoria(CadastroProduto atualizacao){
+        if (atualizacao.nome() !=null);
+        nome = atualizacao.nome();
+        descricao = atualizacao.descricao();
+    }
 
     public Categoria(CadastroCategoria atualizacao){
         if (atualizacao.nome() !=null);

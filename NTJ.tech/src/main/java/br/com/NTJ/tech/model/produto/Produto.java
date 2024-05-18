@@ -1,6 +1,7 @@
 package br.com.NTJ.tech.model.produto;
 
 import br.com.NTJ.tech.dto.produto.CadastroProduto;
+import br.com.NTJ.tech.model.categoria.Categoria;
 import br.com.NTJ.tech.model.pedido.Pedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -62,6 +63,9 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Pedido> pedidos;
 
+    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
+    private Categoria categoria;
+
     public Produto(CadastroProduto produto){
         nmProduto = produto.nmProduto();
         barra = produto.barra();
@@ -72,6 +76,8 @@ public class Produto {
         cor = produto.cor();
         tecido = produto.tecido();
         tamanho = produto.tamanho();
+        categoria = new Categoria(produto);
+        categoria.setProduto(this);
     }
 
     public void atualizarDados(CadastroProduto atualizacao){
