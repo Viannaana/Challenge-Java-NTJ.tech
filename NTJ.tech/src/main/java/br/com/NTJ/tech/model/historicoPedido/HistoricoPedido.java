@@ -38,7 +38,7 @@ public class HistoricoPedido {
     private LocalDate dtPedido;
 
     @OneToMany(mappedBy = "historicoPedido", cascade = CascadeType.ALL)
-    private List<Pedido> historicoDePedidos;
+    private List<Pedido> pedidos;
 
     public HistoricoPedido(CadastroHistoricoPedido historicoPedido){
         dtHistorico = historicoPedido.dtHistorico();

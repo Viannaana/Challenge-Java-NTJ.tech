@@ -45,7 +45,7 @@ public class Cliente {
     private String statusAtivo;
 
     @ManyToOne
-    @JoinColumn(name = "clientes")
+    @JoinColumn(name = "ID_PEDIDO")
     private Pedido pedido;
 
     public Cliente(CadastroCliente cliente){

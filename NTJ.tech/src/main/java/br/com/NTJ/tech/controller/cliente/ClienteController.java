@@ -3,7 +3,6 @@ package br.com.NTJ.tech.controller.cliente;
 import br.com.NTJ.tech.dto.cliente.CadastroCliente;
 import br.com.NTJ.tech.dto.cliente.DetalhesCliente;
 import br.com.NTJ.tech.dto.cliente.DetalhesPedidoCliente;
-import br.com.NTJ.tech.dto.pedido.CadastroPedido;
 import br.com.NTJ.tech.model.cliente.Cliente;
 import br.com.NTJ.tech.repository.cliente.ClienteRepository;
 import br.com.NTJ.tech.repository.pedido.PedidoRepository;

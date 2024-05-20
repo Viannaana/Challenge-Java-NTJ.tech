@@ -1,12 +1,13 @@
 package br.com.NTJ.tech.controller.produto;
 
-import br.com.NTJ.tech.dto.cliente.CadastroCliente;
-import br.com.NTJ.tech.dto.cliente.DetalhesCliente;
 import br.com.NTJ.tech.dto.produto.CadastroProduto;
+import br.com.NTJ.tech.dto.produto.DetalhesMovimentoProduto;
 import br.com.NTJ.tech.dto.produto.DetalhesProduto;
-import br.com.NTJ.tech.model.cliente.Cliente;
 import br.com.NTJ.tech.model.produto.Produto;
+import br.com.NTJ.tech.repository.estoque.EstoqueRepository;
+import br.com.NTJ.tech.repository.movimentoEstoque.MovimentoEstoqueRepository;
 import br.com.NTJ.tech.repository.produto.ProdutoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,9 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoRepository repository;
+
+    @Autowired
+    private MovimentoEstoqueRepository movimentoEstoqueRepository;
 
     @GetMapping
     public ResponseEntity<List<DetalhesProduto>> listar(Pageable pageable){
@@ -45,6 +49,19 @@ public class ProdutoController {
         repository.save(produto);
         var url = uri.path("/produtos/{id}").buildAndExpand(produto.getIdProduto()).toUri();
         return ResponseEntity.created(url).body(new DetalhesProduto(produto));
+    }
+
+    //Post da tabela movimento estoque
+    @PostMapping("{id}/movimentoProduto")
+    @Transactional
+    public ResponseEntity<DetalhesMovimentoProduto> postMovimentoProduto(@PathVariable("id")Long id,
+                                                                         @RequestBody @Valid CadastroProduto dto,
+                                                                         UriComponentsBuilder uriBuilder){
+        var movimentoEstoque = movimentoEstoqueRepository.getReferenceById(id);
+        var produto = new Produto(dto, movimentoEstoque);
+        repository.save(produto);
+        var uri = uriBuilder.path("movimentoProduto/{id}").buildAndExpand(produto.getIdProduto()).toUri();
+        return ResponseEntity.created(uri).body(new DetalhesMovimentoProduto(produto));
     }
 
     @PutMapping("{id}")

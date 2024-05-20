@@ -24,5 +24,12 @@ public record CadastroProduto(
         TipoMarca marca,
         TipoCor cor,
         TipoTecido tecido,
-        TipoTamanho tamanho) {
+        TipoTamanho tamanho,
+        @NotNull
+        @Size(max = 100)
+        String nome,
+        @NotNull
+        @Size(max = 200)
+        String descricao
+) {
 }

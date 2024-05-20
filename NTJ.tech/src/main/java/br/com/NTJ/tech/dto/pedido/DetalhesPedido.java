@@ -1,7 +1,6 @@
 package br.com.NTJ.tech.dto.pedido;
 
 import br.com.NTJ.tech.model.pedido.Pedido;
-
 import java.time.LocalDate;
 
 public record DetalhesPedido(Long Codigo, LocalDate dtPedido, LocalDate dtCancelamento,

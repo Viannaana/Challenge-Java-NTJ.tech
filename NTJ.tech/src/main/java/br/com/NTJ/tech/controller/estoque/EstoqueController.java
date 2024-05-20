@@ -1,11 +1,7 @@
 package br.com.NTJ.tech.controller.estoque;
 
-
-import br.com.NTJ.tech.dto.cliente.CadastroCliente;
-import br.com.NTJ.tech.dto.cliente.DetalhesCliente;
 import br.com.NTJ.tech.dto.estoque.CadastroEstoque;
 import br.com.NTJ.tech.dto.estoque.DetalhesEstoque;
-import br.com.NTJ.tech.model.cliente.Cliente;
 import br.com.NTJ.tech.model.estoque.Estoque;
 import br.com.NTJ.tech.repository.estoque.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;

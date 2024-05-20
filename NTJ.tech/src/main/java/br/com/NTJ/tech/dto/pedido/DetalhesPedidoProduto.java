@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public record DetalhesPedidoProduto(Long Codigo, LocalDate dtPedido, LocalDate dtCancelamento,
                                     LocalDate dtEntrega, Integer vlPedido, Integer vlDesconto, String tpPedido,
-                                    DetalhesProduto detalhesProduto) {
+                                    DetalhesProduto produto) {
 
     public DetalhesPedidoProduto(Pedido pedido){
         this(pedido.getCodigo(), pedido.getDtPedido(), pedido.getDtCancelamento(), pedido.getDtEntrega(),

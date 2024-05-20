@@ -1,9 +1,7 @@
 package br.com.NTJ.tech.dto.cliente;
 
 import br.com.NTJ.tech.dto.pedido.DetalhesPedido;
-import br.com.NTJ.tech.dto.pedido.DetalhesPedidoProduto;
 import br.com.NTJ.tech.model.cliente.Cliente;
-
 import java.time.LocalDate;
 
 public record DetalhesPedidoCliente(Long id, String nome, String email, String telefone,

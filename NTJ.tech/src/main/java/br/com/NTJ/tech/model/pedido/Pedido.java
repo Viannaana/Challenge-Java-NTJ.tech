@@ -49,15 +49,15 @@ public class Pedido {
     private String tpPedido;
 
     @ManyToOne
-    @JoinColumn(name = "historicoDePedidos")
+    @JoinColumn(name = "ID_HISTORICO")
     private HistoricoPedido historicoPedido;
 
     @ManyToOne
-    @JoinColumn(name = "pedidos")
+    @JoinColumn(name = "ID_PRODUTO")
     private Produto produto;
 
-    @OneToMany(mappedBy = "pedidos", cascade = CascadeType.ALL)
-    private List<Cliente> pedidoCliente;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<Cliente> clientes;
 
     public Pedido(CadastroPedido pedido){
         dtPedido = pedido.dtPedido();

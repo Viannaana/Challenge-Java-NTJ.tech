@@ -37,7 +37,6 @@ public class Categoria {
     private Produto produto;
 
     public Categoria(CadastroProduto atualizacao){
-        if (atualizacao.nome() !=null);
         nome = atualizacao.nome();
         descricao = atualizacao.descricao();
     }

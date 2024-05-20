@@ -2,6 +2,7 @@ package br.com.NTJ.tech.model.produto;
 
 import br.com.NTJ.tech.dto.produto.CadastroProduto;
 import br.com.NTJ.tech.model.categoria.Categoria;
+import br.com.NTJ.tech.model.movimentoEstoque.MovimentoEstoque;
 import br.com.NTJ.tech.model.pedido.Pedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -63,8 +64,25 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Pedido> pedidos;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_MOVIMENTO")
+    private MovimentoEstoque movimentoEstoque;
+
     @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
     private Categoria categoria;
+
+    public Produto(CadastroProduto produto, MovimentoEstoque movimentoEstoque){
+        nmProduto = produto.nmProduto();
+        barra = produto.barra();
+        status = produto.status();
+        dataCadastro = produto.dataCadastro();
+        dataCancelamento = produto.dataCancelamento();
+        marca = produto.marca();
+        cor = produto.cor();
+        tecido = produto.tecido();
+        tamanho = produto.tamanho();
+        this.movimentoEstoque = movimentoEstoque;
+    }
 
     public Produto(CadastroProduto produto){
         nmProduto = produto.nmProduto();

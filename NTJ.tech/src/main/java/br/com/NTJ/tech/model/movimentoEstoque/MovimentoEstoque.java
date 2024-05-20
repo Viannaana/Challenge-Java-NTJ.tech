@@ -1,6 +1,7 @@
 package br.com.NTJ.tech.model.movimentoEstoque;
 
 import br.com.NTJ.tech.dto.MovimentoEstoque.CadastroMovimentoEstoque;
+import br.com.NTJ.tech.model.produto.Produto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,8 +31,11 @@ public class MovimentoEstoque {
     @Column(name = "DT_MOVIMENTO", nullable = false)
     private LocalDate data;
 
-    @Column(name = "QT_MOVIMENTO", length = 10, nullable = true)
+    @Column(name = "QT_MOVIMENTO", length = 100, nullable = true)
     private Long quantidade;
+
+    @OneToMany(mappedBy = "movimentoEstoque", cascade = CascadeType.ALL)
+    private List<Produto> produtos;
 
     public MovimentoEstoque(CadastroMovimentoEstoque movimentoEstoque){
         sequencia = movimentoEstoque.sequencia();
