@@ -51,17 +51,17 @@ public class ClienteController {
     }
 
     //Post da tabela Cliente para pedido
-    @PostMapping("{id}/pedidoCliente")
-    @Transactional
-    public ResponseEntity<DetalhesPedidoCliente> postPedidoCliente(@PathVariable("id") Long id,
-                                                                   @RequestBody @Valid CadastroCliente dto,
-                                                                   UriComponentsBuilder uriBuilder){
+   @PostMapping("{id}/pedidoCliente")
+   @Transactional
+   public ResponseEntity<DetalhesPedidoCliente> postPedidoCliente(@PathVariable("id") Long id,
+                                                                  @RequestBody @Valid CadastroCliente dto,
+                                                                  UriComponentsBuilder uriBuilder){
         var pedido = pedidoRepository.getReferenceById(id);
         var cliente = new Cliente(dto, pedido);
         repository.save(cliente);
-        var uri = uriBuilder.path("pedidoCliente/{id}").buildAndExpand(cliente.getCodigo()).toUri();
+        var uri = uriBuilder.path("id/pedidoCliente").buildAndExpand(cliente.getCodigo()).toUri();
         return ResponseEntity.created(uri).body(new DetalhesPedidoCliente(cliente));
-    }
+   }
 
     @PutMapping("{id}")
     @Transactional
