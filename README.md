@@ -1,4 +1,4 @@
-### CLOUD.IA
+### CLAUD.IA
 
 ## Descrição do Projeto
 
