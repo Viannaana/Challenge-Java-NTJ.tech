@@ -1,8 +1,18 @@
-### README
+### CLOUD.IA
 
 ## Descrição do Projeto
 
 Este projeto tem como objetivo desenvolver uma solução inovadora para simplificar a busca em bases de dados, utilizando inteligência artificial (IA) generativa e deep learning. A solução proposta, denominada Claud.IA, visa tornar o processo de busca mais intuitivo e eficaz, permitindo que os usuários expressem suas consultas em linguagem natural e obtenham respostas precisas e relevantes.
+
+
+## Modelo Relacional das Entidades
+
+![WhatsApp Image 2024-05-21 at 00 14 43](https://github.com/Viannaana/Challenge-Java-NTJ.tech/assets/145307161/35339937-4c79-47ee-9532-7b069ba8dc87)
+
+## Modelo Lógico das Entidades
+![WhatsApp Image 2024-05-21 at 00 17 36](https://github.com/Viannaana/Challenge-Java-NTJ.tech/assets/145307161/ed6e91c9-952b-4677-8540-78c909895aab)
+
+
 
 ## Objetivos do Projeto
 
