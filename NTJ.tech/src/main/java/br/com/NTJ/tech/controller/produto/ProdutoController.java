@@ -1,10 +1,11 @@
 package br.com.NTJ.tech.controller.produto;
 
+import br.com.NTJ.tech.dto.MovimentoEstoque.CadastroMovimentoEstoque;
+import br.com.NTJ.tech.dto.MovimentoEstoque.DetalhesProdutoMovimento;
 import br.com.NTJ.tech.dto.produto.CadastroProduto;
-import br.com.NTJ.tech.dto.produto.DetalhesMovimentoProduto;
 import br.com.NTJ.tech.dto.produto.DetalhesProduto;
+import br.com.NTJ.tech.model.movimentoEstoque.MovimentoEstoque;
 import br.com.NTJ.tech.model.produto.Produto;
-import br.com.NTJ.tech.repository.estoque.EstoqueRepository;
 import br.com.NTJ.tech.repository.movimentoEstoque.MovimentoEstoqueRepository;
 import br.com.NTJ.tech.repository.produto.ProdutoRepository;
 import jakarta.validation.Valid;
@@ -47,21 +48,21 @@ public class ProdutoController {
                                                      UriComponentsBuilder uri){
         var produto = new Produto(produtoPost);
         repository.save(produto);
-        var url = uri.path("/produtos/{id}").buildAndExpand(produto.getIdProduto()).toUri();
+        var url = uri.path("/produtos/{id}").buildAndExpand(produto.getCodigo()).toUri();
         return ResponseEntity.created(url).body(new DetalhesProduto(produto));
     }
 
     //Post da tabela movimento estoque
-    @PostMapping("{id}/movimentoProduto")
+    @PostMapping("{id}/produtoMovimento")
     @Transactional
-    public ResponseEntity<DetalhesMovimentoProduto> postMovimentoProduto(@PathVariable("id")Long id,
-                                                                         @RequestBody @Valid CadastroProduto dto,
+    public ResponseEntity<DetalhesProdutoMovimento> postProdutoMovimento(@PathVariable("id")Long id,
+                                                                         @RequestBody @Valid CadastroMovimentoEstoque dto,
                                                                          UriComponentsBuilder uriBuilder){
-        var movimentoEstoque = movimentoEstoqueRepository.getReferenceById(id);
-        var produto = new Produto(dto, movimentoEstoque);
-        repository.save(produto);
-        var uri = uriBuilder.path("movimentoProduto/{id}").buildAndExpand(produto.getIdProduto()).toUri();
-        return ResponseEntity.created(uri).body(new DetalhesMovimentoProduto(produto));
+        var produto = repository.getReferenceById(id);
+        var movimentoEstoque = new MovimentoEstoque(dto, produto);
+        movimentoEstoqueRepository.save(movimentoEstoque);
+        var uri = uriBuilder.path("produtoMovimento/{id}").buildAndExpand(movimentoEstoque.getCodigo()).toUri();
+        return ResponseEntity.created(uri).body(new DetalhesProdutoMovimento(movimentoEstoque));
     }
 
     @PutMapping("{id}")

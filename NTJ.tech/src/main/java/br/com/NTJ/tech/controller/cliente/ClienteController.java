@@ -2,8 +2,10 @@ package br.com.NTJ.tech.controller.cliente;
 
 import br.com.NTJ.tech.dto.cliente.CadastroCliente;
 import br.com.NTJ.tech.dto.cliente.DetalhesCliente;
-import br.com.NTJ.tech.dto.cliente.DetalhesPedidoCliente;
+import br.com.NTJ.tech.dto.pedido.CadastroPedido;
+import br.com.NTJ.tech.dto.pedido.DetalhesClientePedido;
 import br.com.NTJ.tech.model.cliente.Cliente;
+import br.com.NTJ.tech.model.pedido.Pedido;
 import br.com.NTJ.tech.repository.cliente.ClienteRepository;
 import br.com.NTJ.tech.repository.pedido.PedidoRepository;
 import jakarta.validation.Valid;
@@ -50,19 +52,18 @@ public class ClienteController {
         return ResponseEntity.created(url).body(new DetalhesCliente(cliente));
     }
 
-    //Post da tabela Cliente para pedido
-   @PostMapping("{id}/pedidoCliente")
-   @Transactional
-   public ResponseEntity<DetalhesPedidoCliente> postPedidoCliente(@PathVariable("id") Long id,
-                                                                  @RequestBody @Valid CadastroCliente dto,
-                                                                  UriComponentsBuilder uriBuilder){
-        var pedido = pedidoRepository.getReferenceById(id);
-        var cliente = new Cliente(dto, pedido);
-        repository.save(cliente);
-        var uri = uriBuilder.path("id/pedidoCliente").buildAndExpand(cliente.getCodigo()).toUri();
-        return ResponseEntity.created(uri).body(new DetalhesPedidoCliente(cliente));
-   }
-
+    //Tabela da cliente para pedido
+    @PostMapping("{id}/clientePedido")
+    @Transactional
+    public ResponseEntity<DetalhesClientePedido> postClientePedido(@PathVariable("id")Long id,
+                                                                   @RequestBody @Valid CadastroPedido dto,
+                                                                   UriComponentsBuilder uriBuilder){
+        var cliente = repository.getReferenceById(id);
+        var pedido = new Pedido(dto, cliente);
+        pedidoRepository.save(pedido);
+        var uri = uriBuilder.path("clientePedido/{id}").buildAndExpand(pedido.getCodigo()).toUri();
+        return ResponseEntity.created(uri).body(new DetalhesClientePedido(pedido));
+    }
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<DetalhesCliente> atualizar(@PathVariable("id") Long id,

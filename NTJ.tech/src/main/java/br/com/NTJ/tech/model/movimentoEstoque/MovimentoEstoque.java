@@ -25,27 +25,28 @@ public class MovimentoEstoque {
     @Column(name = "ID_MOVIMENTO")
     private Long codigo;
 
-    @Column(name = "SEQ_MOVIMENTO", length = 10, nullable = true)
-    private Long sequencia;
-
     @Column(name = "DT_MOVIMENTO", nullable = false)
     private LocalDate data;
 
     @Column(name = "QT_MOVIMENTO", length = 100, nullable = true)
     private Long quantidade;
 
-    @OneToMany(mappedBy = "movimentoEstoque", cascade = CascadeType.ALL)
-    private List<Produto> produtos;
+    @ManyToOne
+    @JoinColumn(name = "ID_PRODUTO")
+    private Produto produto;
 
     public MovimentoEstoque(CadastroMovimentoEstoque movimentoEstoque){
-        sequencia = movimentoEstoque.sequencia();
         data = movimentoEstoque.data();
         quantidade = movimentoEstoque.quantidade();
     }
 
+    public MovimentoEstoque(CadastroMovimentoEstoque movimentoEstoque, Produto produto){
+        data = movimentoEstoque.data();
+        quantidade = movimentoEstoque.quantidade();
+        this.produto = produto;
+    }
+
     public void atualizarDados(CadastroMovimentoEstoque atualizacao){
-        if(atualizacao.sequencia() != null)
-            sequencia = atualizacao.sequencia();
         if(atualizacao.data() != null)
             data = atualizacao.data();
         if(atualizacao.quantidade() != null)

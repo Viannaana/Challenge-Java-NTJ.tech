@@ -11,11 +11,9 @@ public record CadastroProduto(
         @NotBlank
         @Size(max = 100)
         String nmProduto,
-        @NotNull
         @Size(max = 100)
         String barra,
-        @NotNull
-        @Size(max = 2)
+
         TipoStatus status,
         @NotNull
         LocalDate dataCadastro,
@@ -24,12 +22,6 @@ public record CadastroProduto(
         TipoMarca marca,
         TipoCor cor,
         TipoTecido tecido,
-        TipoTamanho tamanho,
-        @NotNull
-        @Size(max = 100)
-        String nome,
-        @NotNull
-        @Size(max = 200)
-        String descricao
+        TipoTamanho tamanho
 ) {
 }

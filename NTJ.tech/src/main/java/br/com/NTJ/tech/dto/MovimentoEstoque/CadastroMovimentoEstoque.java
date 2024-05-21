@@ -1,6 +1,11 @@
 package br.com.NTJ.tech.dto.MovimentoEstoque;
 
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
-public record CadastroMovimentoEstoque(Long codigo, Long sequencia, LocalDate data, Long quantidade) {
+public record CadastroMovimentoEstoque(
+
+        LocalDate data,
+        Long quantidade) {
 }

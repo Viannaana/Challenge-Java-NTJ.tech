@@ -1,11 +1,17 @@
 package br.com.NTJ.tech.controller.pedido;
 
 
-import br.com.NTJ.tech.dto.pedido.CadastroPedido;
-import br.com.NTJ.tech.dto.pedido.DetalhesDeHistoricoPedido;
-import br.com.NTJ.tech.dto.pedido.DetalhesPedido;
-import br.com.NTJ.tech.dto.pedido.DetalhesPedidoProduto;
+import br.com.NTJ.tech.dto.cliente.CadastroCliente;
+import br.com.NTJ.tech.dto.historicoPedido.CadastroHistoricoPedido;
+import br.com.NTJ.tech.dto.historicoPedido.DetalhesPedidoHistorico;
+import br.com.NTJ.tech.dto.pedido.*;
+import br.com.NTJ.tech.dto.produto.CadastroProduto;
+import br.com.NTJ.tech.dto.produto.DetalhesProdutoPedido;
+import br.com.NTJ.tech.model.cliente.Cliente;
+import br.com.NTJ.tech.model.historicoPedido.HistoricoPedido;
 import br.com.NTJ.tech.model.pedido.Pedido;
+import br.com.NTJ.tech.model.produto.Produto;
+import br.com.NTJ.tech.repository.cliente.ClienteRepository;
 import br.com.NTJ.tech.repository.historicoPedido.HistoricoPedidoRepository;
 import br.com.NTJ.tech.repository.pedido.PedidoRepository;
 import br.com.NTJ.tech.repository.produto.ProdutoRepository;
@@ -33,6 +39,9 @@ public class PedidoController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     @GetMapping
     public ResponseEntity<List<DetalhesPedido>> listar(Pageable pageable){
         var lista = repository.findAll(pageable)
@@ -55,30 +64,31 @@ public class PedidoController {
         var url = uri.path("/pedidos/{id}").buildAndExpand(pedido.getCodigo()).toUri();
         return ResponseEntity.created(url).body(new DetalhesPedido(pedido));
     }
+
     //Post da tabela historico pedido
-    @PostMapping("{id}/historicoDePedido")
+    @PostMapping("{id}/historicoPedido")
     @Transactional
-    public  ResponseEntity<DetalhesDeHistoricoPedido> postHistoricoDePedido(@PathVariable("id")Long id,
-                                                                            @RequestBody @Valid CadastroPedido dto,
-                                                                            UriComponentsBuilder uriBuilder){
-        var historicoPedido = historicoPedidoRepository.getReferenceById(id);
-        var pedido = new Pedido(dto, historicoPedido);
-        repository.save(pedido);
-        var uri = uriBuilder.path("historicoDePedido/{id}").buildAndExpand(pedido.getCodigo()).toUri();
-        return ResponseEntity.created(uri).body(new DetalhesDeHistoricoPedido(pedido));
+    public  ResponseEntity<DetalhesPedidoHistorico> postPedidoHistorico   (@PathVariable("id")Long id,
+                                                                          @RequestBody @Valid CadastroHistoricoPedido dto,
+                                                                          UriComponentsBuilder uriBuilder){
+        var pedido = repository .getReferenceById(id);
+        var historicoPedido = new HistoricoPedido(dto, pedido);
+        historicoPedidoRepository.save(historicoPedido);
+        var uri = uriBuilder.path("historicoPedido/{id}").buildAndExpand(historicoPedido.getCodigo()).toUri();
+        return ResponseEntity.created(uri).body(new DetalhesPedidoHistorico(historicoPedido));
     }
 
     //Post da tabela produto
     @PostMapping("{id}/produtos")
     @Transactional
-    public  ResponseEntity<DetalhesPedidoProduto> postProduto(@PathVariable("id")Long id,
-                                                              @RequestBody @Valid CadastroPedido dto,
-                                                              UriComponentsBuilder uriBuilder){
-        var produto = produtoRepository.getReferenceById(id);
-        var pedido = new Pedido(dto, produto);
+    public  ResponseEntity<DetalhesProdutoPedido> postProdutoPedido(@PathVariable("id")Long id,
+                                                                    @RequestBody @Valid CadastroProduto dto,
+                                                                    UriComponentsBuilder uriBuilder){
+        var pedido = repository.getReferenceById(id);
+        var produto = new Produto(dto, pedido);
         repository.save(pedido);
-        var uri = uriBuilder.path("produtos/{id}").buildAndExpand(pedido.getCodigo()).toUri();
-        return ResponseEntity.created(uri).body(new DetalhesPedidoProduto(pedido));
+        var uri = uriBuilder.path("produtos/{id}").buildAndExpand(produto.getCodigo()).toUri();
+        return ResponseEntity.created(uri).body(new DetalhesProdutoPedido(produto));
     }
 
     @PutMapping("{id}")

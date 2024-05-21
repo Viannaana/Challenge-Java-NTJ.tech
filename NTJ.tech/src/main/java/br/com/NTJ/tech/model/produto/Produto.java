@@ -27,7 +27,7 @@ public class Produto {
     @Id
     @GeneratedValue
     @Column(name = "ID_PRODUTO")
-    private Long idProduto;
+    private Long codigo;
 
     @Column(name = "NM_PRODUTO", length = 100, nullable = false)
     private String nmProduto;
@@ -61,15 +61,12 @@ public class Produto {
     @Enumerated(EnumType.STRING)
     private TipoTamanho tamanho;
 
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
-    private List<Pedido> pedidos;
-
     @ManyToOne
-    @JoinColumn(name = "ID_MOVIMENTO")
-    private MovimentoEstoque movimentoEstoque;
+    @JoinColumn(name = "ID_PEDIDO")
+    private Pedido pedido;
 
-    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
-    private Categoria categoria;
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<MovimentoEstoque> movimentoEstoques;
 
     public Produto(CadastroProduto produto, MovimentoEstoque movimentoEstoque){
         nmProduto = produto.nmProduto();
@@ -81,7 +78,6 @@ public class Produto {
         cor = produto.cor();
         tecido = produto.tecido();
         tamanho = produto.tamanho();
-        this.movimentoEstoque = movimentoEstoque;
     }
 
     public Produto(CadastroProduto produto){
@@ -94,8 +90,19 @@ public class Produto {
         cor = produto.cor();
         tecido = produto.tecido();
         tamanho = produto.tamanho();
-        categoria = new Categoria(produto);
-        categoria.setProduto(this);
+    }
+
+    public Produto(CadastroProduto produto, Pedido pedido){
+        nmProduto = produto.nmProduto();
+        barra = produto.barra();
+        status = produto.status();
+        dataCadastro = produto.dataCadastro();
+        dataCancelamento = produto.dataCancelamento();
+        marca = produto.marca();
+        cor = produto.cor();
+        tecido = produto.tecido();
+        tamanho = produto.tamanho();
+        this.pedido = pedido;
     }
 
     public void atualizarDados(CadastroProduto atualizacao){

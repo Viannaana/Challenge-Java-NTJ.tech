@@ -48,16 +48,15 @@ public class Pedido {
     @Column(name = "TP_PEDIDO", length = 100, nullable = false)
     private String tpPedido;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_HISTORICO")
-    private HistoricoPedido historicoPedido;
-
-    @ManyToOne
-    @JoinColumn(name = "ID_PRODUTO")
-    private Produto produto;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<HistoricoPedido> historicoPedido;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<Cliente> clientes;
+    private List<Produto> produtos;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CLIENTE")
+    private Cliente cliente;
 
     public Pedido(CadastroPedido pedido){
         dtPedido = pedido.dtPedido();
@@ -68,25 +67,16 @@ public class Pedido {
         tpPedido = pedido.tpPedido();
     }
 
-    public Pedido(CadastroPedido pedido, HistoricoPedido historicoPedido){
+    public Pedido(CadastroPedido pedido, Cliente cliente){
         dtPedido = pedido.dtPedido();
         dtCancelamento = pedido.dtCancelamento();
         dtEntrega = pedido.dtEntrega();
         vlPedido = pedido.vlPedido();
         vlDesconto = pedido.vlDesconto();
         tpPedido = pedido.tpPedido();
-        this.historicoPedido = historicoPedido;
+        this.cliente = cliente;
     }
 
-    public Pedido(CadastroPedido pedido, Produto produto){
-        dtPedido = pedido.dtPedido();
-        dtCancelamento = pedido.dtCancelamento();
-        dtEntrega = pedido.dtEntrega();
-        vlPedido = pedido.vlPedido();
-        vlDesconto = pedido.vlDesconto();
-        tpPedido = pedido.tpPedido();
-        this.produto = produto;
-    }
 
     public void atualizarDados(CadastroPedido atualizacao){
         if(atualizacao.dtPedido() != null)
