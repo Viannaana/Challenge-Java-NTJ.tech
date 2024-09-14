@@ -4,18 +4,27 @@ import br.com.NTJ.tech.dto.categoria.CadastroCategoria;
 import br.com.NTJ.tech.dto.categoria.DetalhesCategoria;
 import br.com.NTJ.tech.model.categoria.Categoria;
 import br.com.NTJ.tech.repository.categoria.CategoriaRepository;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
+@RestController
 @RequestMapping("categorias")
-@Controller
+@Tag(name = "Categoria", description = "Operações relacionadas ao Claud.IA")
 public class CategoriaController {
 
     @Autowired
@@ -29,6 +38,9 @@ public class CategoriaController {
     }
 
     @GetMapping("{id}")
+    @Parameters({
+            @Parameter(name="id", description = "Pesquisa categoria por id", required = true)
+    })
     public ResponseEntity<DetalhesCategoria> buscar(@PathVariable("id") Long id){
         var categoria = repository.getReferenceById(id);
         return ResponseEntity.ok(new DetalhesCategoria(categoria));
@@ -36,6 +48,12 @@ public class CategoriaController {
 
     @PostMapping
     @Transactional
+    @Operation(summary = "Cadastro de categoria", description = "cadastra uma categoria")
+    @ApiResponses({@ApiResponse(responseCode = "201", description = "Cadastro com Sucesso", content =
+    @Content(schema = @Schema(implementation = DetalhesCategoria.class), mediaType = "application/json")),
+            @ApiResponse(responseCode = "403", description = "Não Autorizado ou Token Inválido", content =
+                    { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos")})
     public ResponseEntity<DetalhesCategoria> cadastrar(@RequestBody CadastroCategoria categoriaPost,
                                                      UriComponentsBuilder uri){
         var categoria = new Categoria(categoriaPost);
@@ -55,6 +73,7 @@ public class CategoriaController {
 
     @DeleteMapping("{id}")
     @Transactional
+    @Hidden
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id){
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

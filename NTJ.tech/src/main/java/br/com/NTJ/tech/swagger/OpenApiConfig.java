@@ -10,15 +10,15 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
-        info = @Info(contact = @Contact(name = "Thiago Yamamoto", email = "thiago@fiap.com.br"),
+        info = @Info(contact = @Contact(name = "Vitor Pereira", email = "rm551831@fiap.com.br"),
                 title = "FIAP Social Network",
-                description = "Blog da FIAP com autenticação e documentação",
+                description = "Blog da Claud.IA com autenticação e documentação",
                 version = "1.0"),
         servers = @Server(url = "http://localhost:8080"),
-        security = @SecurityRequirement(name = "churrosJwt")
+        security = @SecurityRequirement(name = "Jwt")
 )
 @SecurityScheme(
-        name = "churrosJwt",
+        name = "Claud.IAJwt",
         description = "Segurança JWT",
         bearerFormat = "JWT",
         type = SecuritySchemeType.HTTP,
