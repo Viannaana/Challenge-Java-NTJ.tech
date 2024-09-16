@@ -73,6 +73,10 @@ Inclui classes para gerenciar exceções e erros que ocorrem durante a execuçã
 
 Seguindo estas instruções, você poderá explorar e testar todas as funcionalidades da aplicação de forma eficiente.
 
+## :clipboard: Swagger
+
+Acesso ao Swagger: <a href= http://localhost:8080/swagger-ui/index.html>Clique aqui! </a>
+
 ## Integrantes do Grupo
 
 - **Ana Júlia Almeida Silva Neves** – RM: 98974
