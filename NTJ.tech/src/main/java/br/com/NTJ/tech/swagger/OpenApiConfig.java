@@ -15,14 +15,14 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 description = "Blog da Claud.IA com autenticação e documentação",
                 version = "1.0"),
         servers = @Server(url = "http://localhost:8080"),
-        security = @SecurityRequirement(name = "Jwt")
+        security = @SecurityRequirement(name = "Claud.IAJwt")
 )
 @SecurityScheme(
         name = "Claud.IAJwt",
-        description = "Segurança JWT",
+        description = "Autenticação do sistema JWT",
         bearerFormat = "JWT",
         type = SecuritySchemeType.HTTP,
-        scheme = "bearer",
+        scheme = "challenge",
         in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {
