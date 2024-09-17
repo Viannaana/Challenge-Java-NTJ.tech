@@ -5,7 +5,6 @@ import br.com.NTJ.tech.dto.historicoPedido.CadastroHistoricoPedido;
 import br.com.NTJ.tech.dto.historicoPedido.DetalhesHistoricoPedido;
 import br.com.NTJ.tech.model.historicoPedido.HistoricoPedido;
 import br.com.NTJ.tech.repository.historicoPedido.HistoricoPedidoRepository;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -38,6 +37,7 @@ public class HistoricoPedidoController {
     }
 
     @GetMapping("{id}")
+    @Operation(summary = "Pesquisar o histórico de pedido por ID", description = "pesquisa um phistórico de pedido")
     @Parameters({
             @Parameter(name="id", description = "Pesquisa historico de pedido por id", required = true)
     })
@@ -48,7 +48,7 @@ public class HistoricoPedidoController {
 
     @PostMapping
     @Transactional
-    @Operation(summary = "Cadastro historico de pedido", description = "cadastra um historico de pedido")
+    @Operation(summary = "Cadastro historico de pedido por ID", description = "cadastra um historico de pedido")
     @ApiResponses({@ApiResponse(responseCode = "201", description = "Cadastro com Sucesso", content =
     @Content(schema = @Schema(implementation = DetalhesCategoria.class), mediaType = "application/json")),
             @ApiResponse(responseCode = "403", description = "Não Autorizado ou Token Inválido", content =
@@ -64,6 +64,7 @@ public class HistoricoPedidoController {
 
     @PutMapping("{id}")
     @Transactional
+    @Operation(summary = "Alterar o historico de pedido por ID", description = "altera um pedido")
     public ResponseEntity<DetalhesHistoricoPedido> atualizar(@PathVariable("id") Long id,
                                                      @RequestBody CadastroHistoricoPedido historicoPut){
         var historicoPedido = repository.getReferenceById(id);
@@ -73,7 +74,7 @@ public class HistoricoPedidoController {
 
     @DeleteMapping("{id}")
     @Transactional
-    @Hidden
+    @Operation(summary = "Deletar o historico de pedido por ID", description = "deletar im historico de pedido")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id){
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

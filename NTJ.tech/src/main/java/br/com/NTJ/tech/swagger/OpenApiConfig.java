@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
         info = @Info(contact = @Contact(name = "Vitor Pereira", email = "rm551831@fiap.com.br"),
-                title = "FIAP Social Network",
+                title = "Challenge NTJ.Tech",
                 description = "Blog da Claud.IA com autenticação e documentação",
                 version = "1.0"),
         servers = @Server(url = "http://localhost:8080"),

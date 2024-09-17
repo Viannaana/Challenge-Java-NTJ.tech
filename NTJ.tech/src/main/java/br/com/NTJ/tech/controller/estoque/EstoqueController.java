@@ -5,7 +5,6 @@ import br.com.NTJ.tech.dto.estoque.CadastroEstoque;
 import br.com.NTJ.tech.dto.estoque.DetalhesEstoque;
 import br.com.NTJ.tech.model.estoque.Estoque;
 import br.com.NTJ.tech.repository.estoque.EstoqueRepository;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -39,6 +38,7 @@ public class EstoqueController {
     }
 
     @GetMapping("{id}")
+    @Operation(summary = "Pesquisar o estoque por ID", description = "pesquisa um estoque")
     @Parameters({
             @Parameter(name="id", description = "Pesquisa estoque por id", required = true)
     })
@@ -49,7 +49,7 @@ public class EstoqueController {
 
     @PostMapping
     @Transactional
-    @Operation(summary = "Cadastro de estoque", description = "cadastra um estoque")
+    @Operation(summary = "Cadastar o estoque", description = "cadastra um estoque")
     @ApiResponses({@ApiResponse(responseCode = "201", description = "Cadastro com Sucesso", content =
     @Content(schema = @Schema(implementation = DetalhesCategoria.class), mediaType = "application/json")),
             @ApiResponse(responseCode = "403", description = "Não Autorizado ou Token Inválido", content =
@@ -65,6 +65,7 @@ public class EstoqueController {
 
     @PutMapping("{id}")
     @Transactional
+    @Operation(summary = "Alterar o estoque por ID", description = "altera um estoque")
     public ResponseEntity<DetalhesEstoque> atualizar(@PathVariable("id") Long id,
                                                      @RequestBody CadastroEstoque estoquePut){
         var estoque = repository.getReferenceById(id);
@@ -74,7 +75,7 @@ public class EstoqueController {
 
     @DeleteMapping("{id}")
     @Transactional
-    @Hidden
+    @Operation(summary = "Deletar o estoque por ID", description = "deleta um estoque")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id){
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

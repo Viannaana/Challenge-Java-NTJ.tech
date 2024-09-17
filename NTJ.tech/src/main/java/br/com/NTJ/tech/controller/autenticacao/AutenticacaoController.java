@@ -4,6 +4,7 @@ import br.com.NTJ.tech.dto.autenticacao.DadosLogin;
 import br.com.NTJ.tech.dto.autenticacao.TokenJWT;
 import br.com.NTJ.tech.model.usuario.Usuario;
 import br.com.NTJ.tech.service.TokenService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/login")
+@Tag(name = "Autenticação", description = "Operações relacionadas ao Claud.IA")
 public class AutenticacaoController {
 
     @Autowired

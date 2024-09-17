@@ -5,7 +5,6 @@ import br.com.NTJ.tech.dto.MovimentoEstoque.DetalhesMovimentoEstoque;
 import br.com.NTJ.tech.dto.categoria.DetalhesCategoria;
 import br.com.NTJ.tech.model.movimentoEstoque.MovimentoEstoque;
 import br.com.NTJ.tech.repository.movimentoEstoque.MovimentoEstoqueRepository;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -38,6 +37,7 @@ public class MovimentoEstoqueController {
     }
 
     @GetMapping("{id}")
+    @Operation(summary = "Pesquisar o movimento de estoque por ID", description = "pesquisa um movimento de estoque")
     @Parameters({
             @Parameter(name="id", description = "Pesquisa movimento de estoque por id", required = true)
     })
@@ -48,7 +48,7 @@ public class MovimentoEstoqueController {
 
     @PostMapping
     @Transactional
-    @Operation(summary = "Cadastro de movimento estoque", description = "cadastra um movimento de estoque")
+    @Operation(summary = "Cadastrar o movimento de estoque", description = "cadastra um movimento de estoque")
     @ApiResponses({@ApiResponse(responseCode = "201", description = "Cadastro com Sucesso", content =
     @Content(schema = @Schema(implementation = DetalhesCategoria.class), mediaType = "application/json")),
             @ApiResponse(responseCode = "403", description = "Não Autorizado ou Token Inválido", content =
@@ -64,6 +64,7 @@ public class MovimentoEstoqueController {
 
     @PutMapping("{id}")
     @Transactional
+    @Operation(summary = "Alterar o movimento de estoque por ID", description = "altera um movimento de estoque")
     public ResponseEntity<DetalhesMovimentoEstoque> atualizar(@PathVariable("id") Long id,
                                                      @RequestBody CadastroMovimentoEstoque movimentoPut){
         var movimentoEstoque = repository.getReferenceById(id);
@@ -73,7 +74,7 @@ public class MovimentoEstoqueController {
 
     @DeleteMapping("{id}")
     @Transactional
-    @Hidden
+    @Operation(summary = "Deletar o movimento de estoque por ID", description = "deleta um movimento de estoque")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id){
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

@@ -9,7 +9,6 @@ import br.com.NTJ.tech.model.movimentoEstoque.MovimentoEstoque;
 import br.com.NTJ.tech.model.produto.Produto;
 import br.com.NTJ.tech.repository.movimentoEstoque.MovimentoEstoqueRepository;
 import br.com.NTJ.tech.repository.produto.ProdutoRepository;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -46,6 +45,7 @@ public class ProdutoController {
     }
 
     @GetMapping("{id}")
+    @Operation(summary = "Pesquisa o produto por ID", description = "pesquisa um produto")
     @Parameters({
             @Parameter(name="id", description = "Pesquisa produto por id", required = true)
     })
@@ -56,7 +56,7 @@ public class ProdutoController {
 
     @PostMapping
     @Transactional
-    @Operation(summary = "Cadastro de produto", description = "cadastra um produto")
+    @Operation(summary = "Cadastar o produto por ID", description = "cadastra um produto")
     @ApiResponses({@ApiResponse(responseCode = "201", description = "Cadastro com Sucesso", content =
     @Content(schema = @Schema(implementation = DetalhesCategoria.class), mediaType = "application/json")),
             @ApiResponse(responseCode = "403", description = "Não Autorizado ou Token Inválido", content =
@@ -73,6 +73,7 @@ public class ProdutoController {
     //Post da tabela movimento estoque
     @PostMapping("{id}/produtoMovimento")
     @Transactional
+    @Operation(summary = "Cadastrar o produtoMovimento em produto", description = "cadastra um produtoMovimento")
     public ResponseEntity<DetalhesProdutoMovimento> postProdutoMovimento(@PathVariable("id")Long id,
                                                                          @RequestBody @Valid CadastroMovimentoEstoque dto,
                                                                          UriComponentsBuilder uriBuilder){
@@ -85,6 +86,7 @@ public class ProdutoController {
 
     @PutMapping("{id}")
     @Transactional
+    @Operation(summary = "Alterar o produto por ID", description = "altera um produto")
     public ResponseEntity<DetalhesProduto> atualizar(@PathVariable("id") Long id,
                                                      @RequestBody CadastroProduto produtoPut){
         var produto = repository.getReferenceById(id);
@@ -94,7 +96,7 @@ public class ProdutoController {
 
     @DeleteMapping("{id}")
     @Transactional
-    @Hidden
+    @Operation(summary = "Deletar o produto por ID", description = "deleta um produto")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id){
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

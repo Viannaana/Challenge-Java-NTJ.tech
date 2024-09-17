@@ -14,7 +14,6 @@ import br.com.NTJ.tech.repository.cliente.ClienteRepository;
 import br.com.NTJ.tech.repository.historicoPedido.HistoricoPedidoRepository;
 import br.com.NTJ.tech.repository.pedido.PedidoRepository;
 import br.com.NTJ.tech.repository.produto.ProdutoRepository;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -58,6 +57,7 @@ public class PedidoController {
     }
 
     @GetMapping("{id}")
+    @Operation(summary = "Pesquisar o pedido por ID", description = "pesquisa um pedido")
     @Parameters({
             @Parameter(name="id", description = "Pesquisa pedido por id", required = true)
     })
@@ -68,7 +68,7 @@ public class PedidoController {
 
     @PostMapping
     @Transactional
-    @Operation(summary = "Cadastro de pedido", description = "cadastra um pedido")
+    @Operation(summary = "Cadastrar o pedido por ID", description = "cadastra um pedido")
     @ApiResponses({@ApiResponse(responseCode = "201", description = "Cadastro com Sucesso", content =
     @Content(schema = @Schema(implementation = DetalhesCategoria.class), mediaType = "application/json")),
             @ApiResponse(responseCode = "403", description = "Não Autorizado ou Token Inválido", content =
@@ -85,6 +85,7 @@ public class PedidoController {
     //Post da tabela historico pedido
     @PostMapping("{id}/historicoPedido")
     @Transactional
+    @Operation(summary = "Cadastrar o histórico de pedido em pedido", description = "cadastra um historico de pedido")
     public  ResponseEntity<DetalhesPedidoHistorico> postPedidoHistorico   (@PathVariable("id")Long id,
                                                                           @RequestBody @Valid CadastroHistoricoPedido dto,
                                                                           UriComponentsBuilder uriBuilder){
@@ -98,6 +99,7 @@ public class PedidoController {
     //Post da tabela produto
     @PostMapping("{id}/produtos")
     @Transactional
+    @Operation(summary = "Cadastrar o produto em pedido", description = "cadastra um produto")
     public  ResponseEntity<DetalhesProdutoPedido> postProdutoPedido(@PathVariable("id")Long id,
                                                                     @RequestBody @Valid CadastroProduto dto,
                                                                     UriComponentsBuilder uriBuilder){
@@ -110,6 +112,7 @@ public class PedidoController {
 
     @PutMapping("{id}")
     @Transactional
+    @Operation(summary = "Alterar o pedido por ID", description = "altera um pedido")
     public ResponseEntity<DetalhesPedido> atualizar(@PathVariable("id") Long id,
                                                      @RequestBody CadastroPedido pedidoPut){
         var pedido = repository.getReferenceById(id);
@@ -119,7 +122,7 @@ public class PedidoController {
 
     @DeleteMapping("{id}")
     @Transactional
-    @Hidden
+    @Operation(summary = "Deletar o pedido por ID", description = "deleta um pedido")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id){
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

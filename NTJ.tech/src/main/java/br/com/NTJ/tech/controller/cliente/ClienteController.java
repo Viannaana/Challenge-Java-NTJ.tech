@@ -9,7 +9,6 @@ import br.com.NTJ.tech.model.cliente.Cliente;
 import br.com.NTJ.tech.model.pedido.Pedido;
 import br.com.NTJ.tech.repository.cliente.ClienteRepository;
 import br.com.NTJ.tech.repository.pedido.PedidoRepository;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -47,6 +46,7 @@ public class ClienteController {
     }
 
     @GetMapping("{id}")
+    @Operation(summary = "Pesquisar o cliente por ID", description = "pesquisa um cliente")
     @Parameters({
             @Parameter(name="id", description = "Pesquisa cliente por id", required = true)
     })
@@ -57,7 +57,7 @@ public class ClienteController {
 
     @PostMapping
     @Transactional
-    @Operation(summary = "Cadastro de cliente", description = "cadastra um cliente")
+    @Operation(summary = "Cadastrar o cliente", description = "cadastra um cliente")
     @ApiResponses({@ApiResponse(responseCode = "201", description = "Cadastro com Sucesso", content =
     @Content(schema = @Schema(implementation = DetalhesCategoria.class), mediaType = "application/json")),
             @ApiResponse(responseCode = "403", description = "Não Autorizado ou Token Inválido", content =
@@ -74,6 +74,7 @@ public class ClienteController {
     //Tabela da cliente para pedido
     @PostMapping("{id}/clientePedido")
     @Transactional
+    @Operation(summary = "Cadastrar o pedido em cliente", description = "cadastra um pedido em cliente")
     public ResponseEntity<DetalhesClientePedido> postClientePedido(@PathVariable("id")Long id,
                                                                    @RequestBody @Valid CadastroPedido dto,
                                                                    UriComponentsBuilder uriBuilder){
@@ -85,6 +86,7 @@ public class ClienteController {
     }
     @PutMapping("{id}")
     @Transactional
+    @Operation(summary = "Alterar o cliente por ID", description = "altera um cliente")
     public ResponseEntity<DetalhesCliente> atualizar(@PathVariable("id") Long id,
                                                      @RequestBody CadastroCliente clientePut){
         var cliente = repository.getReferenceById(id);
@@ -94,7 +96,7 @@ public class ClienteController {
 
     @DeleteMapping("{id}")
     @Transactional
-    @Hidden
+    @Operation(summary = "Deletar o cliente por ID", description = "deleta um cliente")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id){
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

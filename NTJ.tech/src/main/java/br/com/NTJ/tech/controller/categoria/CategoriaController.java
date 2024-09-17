@@ -4,7 +4,6 @@ import br.com.NTJ.tech.dto.categoria.CadastroCategoria;
 import br.com.NTJ.tech.dto.categoria.DetalhesCategoria;
 import br.com.NTJ.tech.model.categoria.Categoria;
 import br.com.NTJ.tech.repository.categoria.CategoriaRepository;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -38,6 +37,7 @@ public class CategoriaController {
     }
 
     @GetMapping("{id}")
+    @Operation(summary = "Pesquisar a categoria por ID", description = "pesquisa uma categoria")
     @Parameters({
             @Parameter(name="id", description = "Pesquisa categoria por id", required = true)
     })
@@ -48,7 +48,7 @@ public class CategoriaController {
 
     @PostMapping
     @Transactional
-    @Operation(summary = "Cadastro de categoria", description = "cadastra uma categoria")
+    @Operation(summary = "Cadastrar a categoria", description = "cadastra uma categoria")
     @ApiResponses({@ApiResponse(responseCode = "201", description = "Cadastro com Sucesso", content =
     @Content(schema = @Schema(implementation = DetalhesCategoria.class), mediaType = "application/json")),
             @ApiResponse(responseCode = "403", description = "Não Autorizado ou Token Inválido", content =
@@ -64,6 +64,7 @@ public class CategoriaController {
 
     @PutMapping("{id}")
     @Transactional
+    @Operation(summary = "Alterar a categoria por ID", description = "altera uma categoria")
     public ResponseEntity<DetalhesCategoria> atualizar(@PathVariable("id") Long id,
                                                      @RequestBody CadastroCategoria categoriaPut){
         var categoria = repository.getReferenceById(id);
@@ -73,7 +74,7 @@ public class CategoriaController {
 
     @DeleteMapping("{id}")
     @Transactional
-    @Hidden
+    @Operation(summary = "Deletar a categoria por ID", description = "deleta uma categoria")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id){
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
