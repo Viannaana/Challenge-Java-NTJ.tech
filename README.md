@@ -1,5 +1,3 @@
----
-
 # Claud.IA
 
 ## Sumário
@@ -106,4 +104,3 @@ A aplicação conta com uma interface Swagger para facilitar a interação e doc
 - **Vitor da Silva Pereira** – RM: 551831
 - **Rafael Minoro Itokazo** – RM: 99988
 
---- 
