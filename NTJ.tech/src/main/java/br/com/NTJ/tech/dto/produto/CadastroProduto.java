@@ -1,21 +1,22 @@
 package br.com.NTJ.tech.dto.produto;
 
 import br.com.NTJ.tech.model.produto.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
+@Schema(description = "Informações para cadastro de produto")
 public record CadastroProduto(
         @NotBlank
         @Size(max = 100)
+        @Schema(description = "Nome do produto")
         String nmProduto,
-        @NotNull
         @Size(max = 100)
         String barra,
-        @NotNull
-        @Size(max = 2)
+
         TipoStatus status,
         @NotNull
         LocalDate dataCadastro,
@@ -24,12 +25,6 @@ public record CadastroProduto(
         TipoMarca marca,
         TipoCor cor,
         TipoTecido tecido,
-        TipoTamanho tamanho,
-        @NotNull
-        @Size(max = 100)
-        String nome,
-        @NotNull
-        @Size(max = 200)
-        String descricao
+        TipoTamanho tamanho
 ) {
 }

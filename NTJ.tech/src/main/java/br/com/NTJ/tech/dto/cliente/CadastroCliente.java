@@ -1,22 +1,24 @@
 package br.com.NTJ.tech.dto.cliente;
-import jakarta.validation.constraints.NotBlank;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
+@Schema(description = "Informações para cadastro do cliente")
 public record CadastroCliente(
-        @NotBlank
+
         @Size(max = 100)
+        @Schema(description = "Nome do cliente")
         String nome,
-        @NotBlank
         @Size(max = 100)
+        @Schema(description = "E-mail do cliente")
         String email,
-        @NotBlank
         @Size(max = 15)
+        @Schema(description = "Telefone do cliente")
         String telefone,
         LocalDate cadastro,
         LocalDate cancelamento,
-        @NotBlank
         @Size(max = 100)
+        @Schema(description = "Status do cliente")
         String status) {
 }

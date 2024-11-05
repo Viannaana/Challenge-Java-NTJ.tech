@@ -8,8 +8,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -44,9 +48,8 @@ public class Cliente {
     @Column(name = "STA_ATIVO", length = 100, nullable = false)
     private String statusAtivo;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_PEDIDO")
-    private Pedido pedido;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
 
     public Cliente(CadastroCliente cliente){
         nome = cliente.nome();
@@ -55,16 +58,6 @@ public class Cliente {
         dataCadastro = cliente.cadastro();
         dataCancelamento = cliente.cancelamento();
         statusAtivo = cliente.status();
-    }
-
-    public Cliente(CadastroCliente cliente, Pedido pedido){
-        nome = cliente.nome();
-        email = cliente.email();
-        telefone = cliente.telefone();
-        dataCadastro = cliente.cadastro();
-        dataCancelamento = cliente.cancelamento();
-        statusAtivo = cliente.status();
-        this.pedido = pedido;
     }
 
     public void atualizarDados(CadastroCliente atualizacao){
@@ -79,4 +72,5 @@ public class Cliente {
         if(atualizacao.cancelamento() != null)
             dataCancelamento = atualizacao.cancelamento();
     }
+
 }

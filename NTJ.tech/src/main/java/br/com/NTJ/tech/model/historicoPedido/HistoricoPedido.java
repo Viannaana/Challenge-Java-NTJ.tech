@@ -37,13 +37,21 @@ public class HistoricoPedido {
     @Column(name = "DT_PEDIDO", nullable = false)
     private LocalDate dtPedido;
 
-    @OneToMany(mappedBy = "historicoPedido", cascade = CascadeType.ALL)
-    private List<Pedido> pedidos;
+    @ManyToOne
+    @JoinColumn(name = "ID_PEDIDO")
+    private Pedido pedido;
 
     public HistoricoPedido(CadastroHistoricoPedido historicoPedido){
         dtHistorico = historicoPedido.dtHistorico();
         produto = historicoPedido.produto();
         dtPedido = historicoPedido.dtPedido();
+    }
+
+    public HistoricoPedido(CadastroHistoricoPedido historicoPedido, Pedido pedido){
+        dtHistorico = historicoPedido.dtHistorico();
+        produto = historicoPedido.produto();
+        dtPedido = historicoPedido.dtPedido();
+        this.pedido = pedido;
     }
 
     public void atualizarDados(CadastroHistoricoPedido atualizacao){

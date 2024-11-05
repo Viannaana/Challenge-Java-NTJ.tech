@@ -1,6 +1,13 @@
 package br.com.NTJ.tech.dto.MovimentoEstoque;
 
+
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
-public record CadastroMovimentoEstoque(Long codigo, Long sequencia, LocalDate data, Long quantidade) {
+public record CadastroMovimentoEstoque(
+
+        @NotNull
+        LocalDate data,
+        Long quantidade) {
 }

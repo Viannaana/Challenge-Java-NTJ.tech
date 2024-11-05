@@ -32,14 +32,6 @@ public class Categoria {
     @Column(name = "DC_CATEGORIA", length = 200, nullable = false)
     private String descricao;
 
-    @OneToOne
-    @JoinColumn(name = "ID_PRODUTO", unique = true)
-    private Produto produto;
-
-    public Categoria(CadastroProduto atualizacao){
-        nome = atualizacao.nome();
-        descricao = atualizacao.descricao();
-    }
 
     public Categoria(CadastroCategoria atualizacao){
         if (atualizacao.nome() !=null);

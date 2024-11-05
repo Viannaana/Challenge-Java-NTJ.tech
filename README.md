@@ -1,58 +1,85 @@
-# NTJ.Tech
+### CLAUD.IA
 
-# CLAUD.IA
+## Descrição do Projeto
 
-No âmbito do projeto em questão, propõe-se uma solução inovadora para simplificar a busca em bases de dados por meio do uso de inteligência artificial (IA) generativa e deep learning, dando origem a Claud.IA. Esta abordagem revolucionária visa tornar o processo de busca mais intuitivo e eficaz, permitindo que os usuários expressem suas consultas em linguagem natural e obtenham respostas precisas e relevante
-
-
-## Autores da Claud.IA
-
-[@Ana Júlia Almeida Silva Neves](https://github.com/Viannaana)  RM - 98974
-
-> **Responsavel pelas matérias** 
-> - Disruptive Architectures: Iot, Iob & Generative Ia
-> - Compliance, Quality Assurance & Tests 
+Este projeto tem como objetivo desenvolver uma solução inovadora para simplificar a busca em bases de dados, utilizando inteligência artificial (IA) generativa e deep learning. A solução proposta, denominada Claud.IA, visa tornar o processo de busca mais intuitivo e eficaz, permitindo que os usuários expressem suas consultas em linguagem natural e obtenham respostas precisas e relevantes.
 
 
- [@Rafael Minoro Itokazo](https://github.com/Rminoro) RM - 99988
-> **Responsavel pelas matérias** 
-> - DevOps Tools & Cloud Computing
-> - Mobile Application Development 
+## Modelo Relacional das Entidades
 
-[@Nicoly Oliveira Santos](https://github.com/nicolyy) RM - 552410
-> **Responsavel pelas matérias** 
-> -  Mastering Relational And Non-Relational Database 
-> -  Mobile Application Development 
+![WhatsApp Image 2024-05-21 at 00 14 43](https://github.com/Viannaana/Challenge-Java-NTJ.tech/assets/145307161/35339937-4c79-47ee-9532-7b069ba8dc87)
 
-[@Vitor da Silva Pereira](https://github.com/Vitordspereira/NTJ.Tech) RM -551831
-> **Responsavel pelas matérias** 
-> - Java Advanced
-> - Advanced Business Development With .Net
-
-
-## Instruções para acessar
-
-1. Inicie a aplicação spring após clonar o repositório ou baixar o arquivo do projeto
-
-1. Baixe o arquivo de requisições do postman que está logo abaixo das tabelas de endpoints
-
-1. Importe o arquivo para o seu postman
-realize as requisições de GET, POST, PUT e DELETE
-1. Utilize na URL "http://localhost:8080/{Endpoint}" Confira abaixo em Endpoints
+## Modelo Lógico das Entidades
+![WhatsApp Image 2024-05-21 at 00 17 36](https://github.com/Viannaana/Challenge-Java-NTJ.tech/assets/145307161/ed6e91c9-952b-4677-8540-78c909895aab)
 
 
 
-## Diagramas
-#### Banco de dados Relacional
-<img width="906" alt="Screenshot 2024-04-15 at 21 46 31" src="https://github.com/Vitordspereira/NTJ.Tech/assets/115511851/0f31ca24-956e-460e-8644-eb1f0f7c7e84">
+## Objetivos do Projeto
 
-## Pitch 
-[Claud.IA - NTJ.tech](https://www.youtube.com/watch?v=k4yuOYcu9QM)
+1. **Simplificação da Análise de Dados:** Desenvolver uma solução capaz de lidar com a diversidade de fontes, formatos e estruturas dos dados, tornando o processo de análise mais eficiente.
+2. **Processamento em Tempo Real:** Possibilitar o processamento dos dados em tempo real para tomadas de decisão ágeis e responsivas.
+3. **Geração de Insights Significativos:** Utilizar técnicas avançadas de análise de dados, como IA generativa e deep analytics, para extrair insights relevantes e acionáveis.
+4. **Capacidades de Previsão e Prescrição:** Incorporar modelos preditivos avançados e algoritmos de machine learning para fornecer insights precisos e orientar a tomada de decisões estratégicas.
+5. **Usabilidade e Acessibilidade:** Garantir que a solução seja fácil de usar e acessível, com uma interface intuitiva e recursos de suporte adequados.
 
-## End-Points
-<img width="702" alt="Screenshot 2024-04-15 at 21 59 24" src="https://github.com/Vitordspereira/NTJ.Tech/assets/115511851/218492c8-4229-4432-81f0-0995a7dd9956">
-<img width="702" alt="Screenshot 2024-04-15 at 21 59 47" src="https://github.com/Vitordspereira/NTJ.Tech/assets/115511851/1e710dd8-00d5-487a-a522-61468a6ccf97">
-<img width="702" alt="Screenshot 2024-04-15 at 22 00 11" src="https://github.com/Vitordspereira/NTJ.Tech/assets/115511851/9906472d-1bbb-4490-bfb6-6ac7d69df29b">
-<img width="702" alt="Screenshot 2024-04-15 at 22 01 40" src="https://github.com/Vitordspereira/NTJ.Tech/assets/115511851/5708df5e-8fbb-4e69-b0c0-f76d10493588">
+## Endpoints
 
+| Endpoint                | Método | Descrição                                                |
+|-------------------------|--------|----------------------------------------------------------|
+| `/fornecedores`         | GET    | Retorna a lista de fornecedores                          |
+| `/fornecedores`         | POST   | Adiciona um novo fornecedor                              |
+| `/fornecedores/{id}`    | GET    | Retorna os detalhes de um fornecedor específico          |
+| `/fornecedores/{id}`    | PUT    | Atualiza os detalhes de um fornecedor específico         |
+| `/fornecedores/{id}`    | DELETE | Deleta um fornecedor específico                          |
+| `/produtos`             | GET    | Retorna a lista de produtos                              |
+| `/produtos`             | POST   | Adiciona um novo produto                                 |
+| `/produtos/{id}`        | GET    | Retorna os detalhes de um produto específico             |
+| `/produtos/{id}`        | PUT    | Atualiza os detalhes de um produto específico            |
+| `/produtos/{id}`        | DELETE | Deleta um produto específico                             |
+| `/clientes`             | GET    | Retorna a lista de clientes                              |
+| `/clientes`             | POST   | Adiciona um novo cliente                                 |
+| `/clientes/{id}`        | GET    | Retorna os detalhes de um cliente específico             |
+| `/clientes/{id}`        | PUT    | Atualiza os detalhes de um cliente específico            |
+| `/clientes/{id}`        | DELETE | Deleta um cliente específico                             |
+| `/pedidos`              | GET    | Retorna a lista de pedidos                               |
+| `/pedidos`              | POST   | Adiciona um novo pedido                                  |
+| `/pedidos/{id}`         | GET    | Retorna os detalhes de um pedido específico              |
+| `/pedidos/{id}`         | PUT    | Atualiza os detalhes de um pedido específico             |
+| `/pedidos/{id}`         | DELETE | Deleta um pedido específico                              |
 
+## Estrutura dos Pacotes
+
+### 📂 Model
+Este pacote contém as classes que representam as entidades do sistema, definindo como os dados são armazenados no banco de dados e refletindo as regras de negócio.
+
+### 📂 Dto
+Inclui classes responsáveis por transportar dados entre as diferentes camadas da aplicação, especialmente entre o controller e a view. Esses objetos facilitam a transferência de dados de forma eficiente e segura.
+
+### 📂 Repository
+As interfaces neste pacote fazem a comunicação direta com o banco de dados através da JPA, gerenciando as operações de CRUD e outras consultas diretamente nas entidades.
+
+### 📂 Controller
+Contém as classes que lidam com as requisições HTTP recebidas pelo sistema. Essas classes processam as solicitações, executam a lógica de negócio necessária e retornam as respostas adequadas ao cliente.
+
+### 📂 Handler
+Inclui classes para gerenciar exceções e erros que ocorrem durante a execução da aplicação. Por exemplo, se um recurso solicitado não for encontrado, uma exceção "404 not found" será lançada e tratada aqui.
+
+## 🚀 Instruções de Uso do Sistema
+
+1. **Iniciar a Aplicação:** Após clonar o repositório ou baixar os arquivos do projeto, inicialize a aplicação Spring Boot.
+2. **Importar Requisições do Postman:** Baixe o arquivo de requisições do Postman fornecido no repositório e importe-o no seu Postman.
+3. **Executar Requisições:** Utilize as requisições GET, POST, PUT e DELETE conforme necessário para interagir com os endpoints listados.
+4. **URL Base:** Utilize "http://localhost:8080/{Endpoint}" para realizar as requisições, substituindo `{Endpoint}` pelo caminho desejado conforme descrito na tabela de endpoints acima.
+
+Seguindo estas instruções, você poderá explorar e testar todas as funcionalidades da aplicação de forma eficiente.
+
+## :clipboard: Swagger
+
+Acesso ao Swagger: <a href= http://localhost:8080/swagger-ui/index.html>Clique aqui! </a>
+
+## Integrantes do Grupo
+
+- **Ana Júlia Almeida Silva Neves** – RM: 98974
+- **Nicoly Oliveira Santos** – RM: 552410
+- **Vitor da Silva Pereira** – RM: 551831
+- **Rafael Minoro Itokazo** – RM: 99988

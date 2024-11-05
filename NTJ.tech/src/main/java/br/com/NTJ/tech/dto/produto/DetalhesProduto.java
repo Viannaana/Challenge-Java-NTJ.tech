@@ -5,13 +5,11 @@ import java.time.LocalDate;
 
 public record DetalhesProduto(Long idProduto, String nmProduto, String barra,
                               TipoStatus status, LocalDate dataCadastro, LocalDate dataCancelamento,
-                              TipoMarca marca, TipoCor cor, TipoTecido tecido, TipoTamanho tamanho, String nome,
-                              String descricao) {
+                              TipoMarca marca, TipoCor cor, TipoTecido tecido, TipoTamanho tamanho) {
 
     public DetalhesProduto (Produto produto){
-        this(produto.getIdProduto(), produto.getNmProduto(), produto.getBarra(),
+        this(produto.getCodigo(), produto.getNmProduto(), produto.getBarra(),
                 produto.getStatus(), produto.getDataCadastro(), produto.getDataCancelamento(), produto.getMarca(),
-                produto.getCor(), produto.getTecido(), produto.getTamanho(), produto.getCategoria().getNome(),
-                produto.getCategoria().getDescricao());
+                produto.getCor(), produto.getTecido(), produto.getTamanho());
     }
 }
